@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xx.mapper.KeChengMapper">
+    <resultMap id="a" type="com.xx.pojo.KeCheng">
+        <id column="kid" property="kid"></id>
+        <result column="knum" property="knum"></result>
+        <result column="kprice" property="kprice"></result>
+        <result column="ktime" property="ktime"></result>
+        <result column="kname" property="kname"></result>
+        <result column="ktype" property="ktype"></result>
+    </resultMap>
+    <select id="findAll" resultMap="a">
+        select * from kecheng where 1=1
+        <if test="mohu!=null">
+            and kname like concat('%',#{mohu},'%')
+        </if>
+     </select>
+<select id="find" resultMap="a">
+      select * from kecheng
+</select>
+    <resultMap id="b" type="com.xx.pojo.ZhangJie">
+        <id column="zid" property="zid"></id>
+        <result column="kid" property="kid"></result>
+        <result column="zname" property="zname"></result>
+        <result column="zcontent" property="zcontent"></result>
+        <result column="ztime" property="ztime"></result>
+    </resultMap>
+    <select id="kechenglist" resultMap="b">
+        select * from zhangjie where kid=#{kid}
+    </select>
+
+
+    <update id="upkechengjian">
+        update kecheng set knum=knum-1 where kid=#{kid}
+    </update>
+
+    <delete id="del">
+        delete from zhangjie where zid=#{zid}
+    </delete>
+
+    <insert id="add">
+        insert into zhangjie values (null,#{z.kid},#{z.zname},#{z.zcontent},#{z.ztime})
+    </insert>
+
+    <update id="upkechengjia">
+         update kecheng set knum=knum+1 where kid=#{kid}
+    </update>
+
+    <delete id="dels">
+         delete from kecheng where kid=#{kid}
+    </delete>
+
+    <insert id="upload">
+        insert into kecheng(kid,pit) values (null,#{k})
+
+    </insert>
+</mapper>
